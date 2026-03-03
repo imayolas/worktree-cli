@@ -10,6 +10,7 @@ import { configHandler } from "./commands/config.js";
 import { prWorktreeHandler } from "./commands/pr.js";
 import { openWorktreeHandler } from "./commands/open.js";
 import { extractWorktreeHandler } from "./commands/extract.js";
+import { cdWorktreeHandler } from "./commands/cd.js";
 const program = new Command();
 program
     .name("wt")
@@ -83,6 +84,11 @@ program
     .option("-e, --editor <editor>", "Editor to use for opening the worktree (overrides default editor)")
     .description("Extract an existing branch as a new worktree. If no branch is specified, extracts the current branch.")
     .action(extractWorktreeHandler);
+program
+    .command("cd")
+    .argument("[pathOrBranch]", "Path to worktree or branch name")
+    .description("Print the path of a worktree for use with cd. Usage: cd $(wt cd)")
+    .action(cdWorktreeHandler);
 program
     .command("config")
     .description("Manage CLI configuration settings.")
